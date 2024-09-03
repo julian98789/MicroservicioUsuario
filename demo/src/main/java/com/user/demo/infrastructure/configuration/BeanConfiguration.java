@@ -14,6 +14,7 @@ import com.user.demo.infrastructure.output.jpa.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ public class BeanConfiguration {
     private final IUserEntityMapper userEntityMapper;
    private final IRoleRepository iRoleRepository;
    private final IRoleEntityMapper iRoleEntityMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public IRolePersistencePort iRolePersistencePort() {
@@ -31,7 +33,7 @@ public class BeanConfiguration {
 
     @Bean
     public IUserPersistencePort iUserPersistencePort() {
-        return new UserJpaAdapter(userRepository,userEntityMapper);
+        return new UserJpaAdapter(userRepository,userEntityMapper,passwordEncoder);
     }
 
     @Bean

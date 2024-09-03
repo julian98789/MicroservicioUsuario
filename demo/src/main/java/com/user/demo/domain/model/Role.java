@@ -5,9 +5,9 @@ public class Role {
     private String name;
     private String description;
 
-    public Role(String name, Long id, String description) {
-        this.name = name;
+    public Role(Long id, String name, String description) {
         this.id = id;
+        this.name = name;
         this.description = description;
     }
 

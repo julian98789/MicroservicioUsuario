@@ -16,6 +16,6 @@ public class Util {
     public static final String USER_NOT_OF_LEGAL_EGE = "El usuario debe ser mayor de edad";
     public static final String USER_IDENTIFICATION_ALREADY_EXISTS = "La IDENTIFICATION ya existe";
     public static final String USER_EMAIL_ALREADY_EXISTS = "el EMAIL ya existe";
-
-
+    public static final String ROLE_NOT_FUND = "Role not found";
+    private Util(){}
 }

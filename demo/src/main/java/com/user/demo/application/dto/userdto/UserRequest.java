@@ -21,11 +21,11 @@ public class UserRequest {
     private String lastName;
 
     @NotBlank(message = Util.IDENTIFICATION_NOT_BLANK)
-    @Pattern(regexp = "^[0-9]+$", message = Util.IDENTIFICATION_PATTERN)
+    @Pattern(regexp = "^\\d+$", message = Util.IDENTIFICATION_PATTERN)
     private String  identification;
 
     @NotBlank(message = Util.PHONE_NOT_BLANK)
-    @Pattern(regexp = "^\\+?[0-9]{1,13}$", message = Util.PHONE_PATTERN)
+    @Pattern(regexp = "^\\+?\\d{1,13}$", message = Util.PHONE_PATTERN)
     private String phone;
 
     @NotNull(message = Util.DATE_OF_BIRTH_NOT_NULL)
@@ -37,9 +37,6 @@ public class UserRequest {
 
     @NotBlank(message = Util.PASSWORD_NOT_BLANK)
     private String password;
-
-    @NotNull(message = Util.ROLE_ID_NOT_NULL)
-    private Long roleId;
 
 
 }

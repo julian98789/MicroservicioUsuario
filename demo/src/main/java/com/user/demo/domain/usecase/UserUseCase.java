@@ -22,7 +22,6 @@ public class UserUseCase implements IUserServicePort {
     public User registerUser(User user) {
         validateUser(user);
 
-
         return iUserPersistencePort.registerUser(user);
     }
 

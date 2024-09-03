@@ -24,12 +24,12 @@ public class GlobalExeceptionHandler {
     }
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<String> EmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+    public ResponseEntity<String> emailAlreadyExistsException(EmailAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(IdentificationAlreadyExistsException.class)
-    public ResponseEntity<String> IdentificationAlreadyExistsException(IdentificationAlreadyExistsException ex) {
+    public ResponseEntity<String> identificationAlreadyExistsException(IdentificationAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 

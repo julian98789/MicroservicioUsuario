@@ -2,7 +2,7 @@ package com.user.demo.application.handler;
 
 import com.user.demo.application.dto.userdto.UserRequest;
 import com.user.demo.application.dto.userdto.UserResponse;
-import com.user.demo.application.mapper.rolemapper.IUserRequestMapper;
+import com.user.demo.application.mapper.usermapper.IUserRequestMapper;
 import com.user.demo.application.mapper.usermapper.IUserResponseMapper;
 import com.user.demo.domain.api.IUserServicePort;
 import com.user.demo.domain.model.Role;
@@ -27,7 +27,7 @@ public class UserHandler implements IUserHandler {
 
         User user = iUserRequestMapper.userRequestToUser(userRequest);
 
-        Role role = iRolePersistencePort.getRoleById(userRequest.getRoleId());
+        Role role = iRolePersistencePort.getRoleById(2L);
         user.setRole(role);
 
         User registerUser = iUserServicePort.registerUser(user);

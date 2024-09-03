@@ -1,4 +1,4 @@
-package com.user.demo.application.mapper.rolemapper;
+package com.user.demo.application.mapper.usermapper;
 
 import com.user.demo.application.dto.userdto.UserRequest;
 import com.user.demo.domain.model.User;
