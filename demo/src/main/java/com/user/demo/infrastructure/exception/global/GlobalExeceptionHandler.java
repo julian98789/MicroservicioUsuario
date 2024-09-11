@@ -1,8 +1,6 @@
 package com.user.demo.infrastructure.exception.global;
 
-import com.user.demo.domain.exception.EmailAlreadyExistsException;
-import com.user.demo.domain.exception.IdentificationAlreadyExistsException;
-import com.user.demo.domain.exception.UserNotOfLegalAge;
+import com.user.demo.domain.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,20 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExeceptionHandler {
 
+    @ExceptionHandler(InvalidCredentialsLoginException.class)
+    public ResponseEntity<String> invalidCredentialsLoginException( InvalidCredentialsLoginException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AccountLockedException.class)
+    public ResponseEntity<String> accountLockedException( AccountLockedException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TooManyAttemptsException.class)
+    public ResponseEntity<String> tooManyAttemptsException( TooManyAttemptsException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
 
     @ExceptionHandler(UserNotOfLegalAge.class)
     public ResponseEntity<String> userNotOfLegalAge(UserNotOfLegalAge ex) {

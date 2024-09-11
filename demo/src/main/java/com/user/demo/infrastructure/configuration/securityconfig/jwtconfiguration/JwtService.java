@@ -1,5 +1,6 @@
 package com.user.demo.infrastructure.configuration.securityconfig.jwtconfiguration;
 
+import com.user.demo.domain.model.User;
 import com.user.demo.infrastructure.output.jpa.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,9 +24,8 @@ import static javax.crypto.Cipher.SECRET_KEY;
 public class JwtService {
     private static final String SECRET_KEY = "u2FsdGVkX19jY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2Fh\n";
 
-    public String getToken(UserEntity userEntity) {
-        // Usa el correo electrónico del usuario para generar el token
-        return generateToken(new HashMap<>(), userEntity.getEmail(), userEntity.getRole().getName());
+    public String getToken(User user) {
+        return generateToken(new HashMap<>(), user.getEmail(), user.getRole().getName());
     }
 
     public String generateToken(
@@ -36,10 +36,10 @@ public class JwtService {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(email)  // Usa el correo electrónico como sujeto
-                .claim("role", role) // Incluye el rol en los claims
+                .setSubject(email)
+                .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) // Ajusta el tiempo de expiración si es necesario
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -50,7 +50,6 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        // Extrae el correo electrónico del token
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -60,19 +59,13 @@ public class JwtService {
     }
 
     public String extractRole(String token) {
-        // Extrae el rol del token
         return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
-    public boolean isTokenValid(String token, UserEntity userEntity) {
-        // Compara el correo electrónico extraído del token con el del usuario
+    public boolean isTokenValid(String token, User user) {
         final String email = extractUsername(token);
         final String role = extractRole(token);
-        System.out.println("EMAILL:" + email.equals(userEntity.getEmail()));
-        System.out.println("Roleee:" + role.equals(userEntity.getRole().getName()));
-        return (email.equals(userEntity.getEmail()) && role.equals(userEntity.getRole().getName()));
-
-
+        return (email.equals(user.getEmail()) && role.equals(user.getRole().getName()));
     }
 
     private Claims extractAllClaims(String token) throws SignatureException {

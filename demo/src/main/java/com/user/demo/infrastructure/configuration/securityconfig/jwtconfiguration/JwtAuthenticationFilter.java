@@ -1,6 +1,8 @@
 package com.user.demo.infrastructure.configuration.securityconfig.jwtconfiguration;
 
+import com.user.demo.domain.model.User;
 import com.user.demo.infrastructure.output.jpa.entity.UserEntity;
+import com.user.demo.infrastructure.output.jpa.mapper.IUserEntityMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -24,6 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final IUserEntityMapper userEntityMapper;
 
 
     @Override
@@ -34,22 +36,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             final String jwt = authHeader.substring(7);
-            final String email = jwtService.extractUsername(jwt);  // Usamos extractUsername para extraer el correo
-
-            // Logs para depurar
-            System.out.println("JWT Token: " + jwt);
-            System.out.println("Extracted Email: " + email);
+            final String email = jwtService.extractUsername(jwt);
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                try {
-                    // Cargamos el UserDetails usando el email
-                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
 
-                    // Logs para depurar
-                    System.out.println("UserDetails loaded: " + userDetails);
+                UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+                if (userDetails instanceof UserEntity userEntity) {
+                    User user = userEntityMapper.toModel(userEntity);
 
-                    // Validamos el token usando el UserDetails y su correo
-                    if (jwtService.isTokenValid(jwt, (UserEntity) userDetails)) {  // Cast a UserEntity
+                    if (jwtService.isTokenValid(jwt, user)) {
                         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
@@ -60,13 +55,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         );
                         SecurityContextHolder.getContext().setAuthentication(authToken);
                     }
-                } catch (UsernameNotFoundException e) {
-                    // Logs para depurar
-                    System.out.println("User not found: " + email);
                 }
             }
         }
         filterChain.doFilter(request, response);
     }
-
 }

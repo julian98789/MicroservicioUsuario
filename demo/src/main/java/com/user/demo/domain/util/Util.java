@@ -17,5 +17,12 @@ public class Util {
     public static final String USER_IDENTIFICATION_ALREADY_EXISTS = "La IDENTIFICATION ya existe";
     public static final String USER_EMAIL_ALREADY_EXISTS = "el EMAIL ya existe";
     public static final String ROLE_NOT_FUND = "Role not found";
+    public static final int MAX_TIME = 3;
+    public static final long LOCK_TIME_DURATION = 5000L;
+    public static final String INVALID_CREDENTIALS = "Correo o contraseña inválido. Intentos restantes: ";
+    public static final String ACCOUNT_LOCKED = "Cuenta bloqueada. Intenta nuevamente en 5 segundos.";
+    public static final String TOO_MANY_ATTEMPTS = "Has alcanzado el número máximo de intentos fallidos. Bloqueado por 5 segundos.";
+    public static final String USER_NOT_FOUND = "Usuario no encontrado";
+
     private Util(){}
 }

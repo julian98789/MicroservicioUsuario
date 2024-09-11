@@ -1,5 +1,6 @@
 package com.user.demo.infrastructure.configuration.securityconfig;
 
+import com.user.demo.domain.util.Util;
 import com.user.demo.infrastructure.output.jpa.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +37,7 @@ public class BenSecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException(Util.USER_NOT_FOUND));
     }
 
     @Bean

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,10 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserRestController {
 
     private final IUserHandler iUserHandler;
-    private final AuthenticationService service;
     @Operation(
             summary = "Register a new user",
-            description = "Register a new user in the system. If the user registration is successful, the user details will be returned. If there are validation errors or the user already exists, an error will be returned."
+            description = "Register a new user in the system. If the user registration is successful, the user details will be returned. If there are validation errors or the user already exists, an error will be returned.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
     @ApiResponses(value = {
             @ApiResponse(
@@ -55,10 +56,5 @@ public class UserRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(registerUser);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return  ResponseEntity.ok(service.authenticate(request));
-    }
+
 }
