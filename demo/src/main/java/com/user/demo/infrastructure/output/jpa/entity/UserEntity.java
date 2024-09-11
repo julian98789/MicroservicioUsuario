@@ -76,16 +76,4 @@ public class UserEntity implements UserDetails {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "email='" + getEmail() + '\'' +
-                ", role='" + getRole().getName() + '\'' +
-                '}';
-    }
-
 }

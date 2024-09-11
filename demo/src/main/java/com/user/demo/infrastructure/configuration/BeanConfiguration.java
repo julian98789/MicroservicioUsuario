@@ -13,8 +13,6 @@ import com.user.demo.infrastructure.output.jpa.repository.IRoleRepository;
 import com.user.demo.infrastructure.output.jpa.repository.IUserRepository;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -46,20 +44,13 @@ public class BeanConfiguration {
         return new UserUseCase(iUserPersistencePort);
     }
 
+    @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("API Documentation")
-                        .description("API Documentation with JWT Authentication")
-                        .version("1.0"))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .components(new io.swagger.v3.oas.models.Components()
-                        .addSecuritySchemes("bearerAuth", new SecurityScheme()
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
-                                .bearerFormat("JWT")
-                                .in(SecurityScheme.In.HEADER)
-                                .name("Authorization")));
-    }
+                .components(new Components()
+                        .addSecuritySchemes("bearer-key",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
+        }
 }
 
 

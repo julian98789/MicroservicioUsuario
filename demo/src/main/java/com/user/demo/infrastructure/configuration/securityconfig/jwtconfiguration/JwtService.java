@@ -1,7 +1,6 @@
 package com.user.demo.infrastructure.configuration.securityconfig.jwtconfiguration;
 
 import com.user.demo.domain.model.User;
-import com.user.demo.infrastructure.output.jpa.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,7 +8,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -18,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import static javax.crypto.Cipher.SECRET_KEY;
 
 @Service
 public class JwtService {

@@ -1,11 +1,8 @@
 package com.user.demo.infrastructure.input.controller;
 
-import com.user.demo.application.dto.authenticationdto.AuthenticationRequest;
-import com.user.demo.application.dto.authenticationdto.AuthenticationResponse;
 import com.user.demo.application.dto.userdto.UserRequest;
 import com.user.demo.application.dto.userdto.UserResponse;
 import com.user.demo.application.handler.IUserHandler;
-import com.user.demo.infrastructure.configuration.securityconfig.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
