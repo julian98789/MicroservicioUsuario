@@ -1,6 +1,7 @@
 package com.user.demo.infrastructure.configuration.securityconfig.jwtconfiguration;
 
 import com.user.demo.domain.model.User;
+import com.user.demo.domain.util.Util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +9,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -19,7 +22,8 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = "u2FsdGVkX19jY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2FhY2Fh\n";
+    @Value("${app.secret.key}")
+    private String secretKey;
 
     public String getToken(User user) {
         return generateToken(new HashMap<>(), user.getEmail(), user.getRole().getName());
@@ -34,15 +38,15 @@ public class JwtService {
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(email)
-                .claim("role", role)
+                .claim(Util.ROLE_CLAIMS, role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + Util.TOKEN_EXPIRATION_TIME))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -56,7 +60,7 @@ public class JwtService {
     }
 
     public String extractRole(String token) {
-        return extractClaim(token, claims -> claims.get("role", String.class));
+        return extractClaim(token, claims -> claims.get(Util.ROLE_CLAIMS, String.class));
     }
 
     public boolean isTokenValid(String token, User user) {
@@ -75,7 +79,7 @@ public class JwtService {
                     .getBody();
         } catch (SignatureException e) {
             e.printStackTrace();
-            return Jwts.claims(); // Devuelve un objeto Claims vacío en caso de error
+            return Jwts.claims();
         }
     }
 }

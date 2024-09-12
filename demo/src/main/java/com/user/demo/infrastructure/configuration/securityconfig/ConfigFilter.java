@@ -1,6 +1,7 @@
 package com.user.demo.infrastructure.configuration.securityconfig;
 
 
+import com.user.demo.domain.util.Util;
 import com.user.demo.infrastructure.configuration.securityconfig.jwtconfiguration.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +32,7 @@ public class ConfigFilter {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
-                        .requestMatchers("/auth/register-assistant").hasAuthority("admin")
+                        .requestMatchers("/auth/register-assistant").hasAuthority(Util.USER_ROLE_ADMIN)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

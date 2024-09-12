@@ -1,6 +1,7 @@
 package com.user.demo.infrastructure.configuration.securityconfig.jwtconfiguration;
 
 import com.user.demo.domain.model.User;
+import com.user.demo.domain.util.Util;
 import com.user.demo.infrastructure.output.jpa.entity.UserEntity;
 import com.user.demo.infrastructure.output.jpa.mapper.IUserEntityMapper;
 import jakarta.servlet.FilterChain;
@@ -33,8 +34,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        final String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        final String authHeader = request.getHeader(Util.HEADER_AUTHORIZATION);
+        if (authHeader != null && authHeader.startsWith(Util.AUTH_BARER)) {
             final String jwt = authHeader.substring(7);
             final String email = jwtService.extractUsername(jwt);
 
