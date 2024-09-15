@@ -1,6 +1,7 @@
 package com.user.demo.infrastructure.exception.global;
 
 import com.user.demo.domain.exception.*;
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -58,4 +59,34 @@ public class GlobalExeceptionHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(errors);
     }
+    @ExceptionHandler(FeignException.class)
+    public ResponseEntity<String> handleFeignException(FeignException e) {
+        String errorMessage = e.getMessage();
+
+        String cleanedMessage = extractErrorMessage(errorMessage);
+        if (cleanedMessage == null || cleanedMessage.isEmpty()) {
+            cleanedMessage = "Error desconocido";
+        }
+        HttpStatus status = HttpStatus.valueOf(e.status());
+        return ResponseEntity.status(status).body(cleanedMessage);
+    }
+
+    private String extractErrorMessage(String errorMessage) {
+        try {
+            int startIndex = errorMessage.lastIndexOf('[') + 1;
+            int endIndex = errorMessage.lastIndexOf(']');
+            if (startIndex > 0 && endIndex > startIndex) {
+                String message = errorMessage.substring(startIndex, endIndex).trim();
+                if (message.startsWith(":")) {
+                    message = message.substring(1).trim();
+                }
+                return message;
+            }
+        } catch (Exception ex) {
+
+        }
+        return null;
+    }
 }
+
+

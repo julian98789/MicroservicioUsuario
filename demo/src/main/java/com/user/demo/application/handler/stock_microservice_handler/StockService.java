@@ -6,6 +6,7 @@ import com.user.demo.application.dto.stock_microservice_dto.branddto.BrandReques
 import com.user.demo.application.dto.stock_microservice_dto.branddto.BrandResponse;
 import com.user.demo.application.dto.stock_microservice_dto.categorydto.CategoryRequest;
 import com.user.demo.application.dto.stock_microservice_dto.categorydto.CategoryResponse;
+import com.user.demo.domain.util.pagination.PaginatedResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,8 @@ public class StockService {
     private final IStockServiceClient stockServiceClient;
 
 
-    public List<CategoryResponse> getAllCategories() {
-        return stockServiceClient.getCategories();
+    public PaginatedResult<CategoryResponse> getCategories(int page, int size, String sort, boolean ascending) {
+        return stockServiceClient.getCategories(page, size, sort, ascending);
     }
 
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
