@@ -1,4 +1,4 @@
-package com.user.demo.application.dto.userdto;
+package com.user.demo.application.dto.user_microservice_dto.userdto;
 
 import com.user.demo.domain.util.Util;
 import jakarta.validation.constraints.Email;

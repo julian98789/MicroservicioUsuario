@@ -1,4 +1,4 @@
-package com.user.demo.application.dto.roledto;
+package com.user.demo.application.dto.user_microservice_dto.roledto;
 
 import lombok.Getter;
 import lombok.Setter;

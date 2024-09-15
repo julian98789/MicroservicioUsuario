@@ -1,8 +1,8 @@
-package com.user.demo.infrastructure.input.controller;
+package com.user.demo.infrastructure.input.controller.user_microservice_controller;
 
-import com.user.demo.application.dto.userdto.UserRequest;
-import com.user.demo.application.dto.userdto.UserResponse;
-import com.user.demo.application.handler.IUserHandler;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserRequest;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserResponse;
+import com.user.demo.application.handler.user_microservice_handler.IUserHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

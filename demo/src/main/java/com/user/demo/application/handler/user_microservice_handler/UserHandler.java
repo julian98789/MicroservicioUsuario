@@ -1,7 +1,7 @@
-package com.user.demo.application.handler;
+package com.user.demo.application.handler.user_microservice_handler;
 
-import com.user.demo.application.dto.userdto.UserRequest;
-import com.user.demo.application.dto.userdto.UserResponse;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserRequest;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserResponse;
 import com.user.demo.application.mapper.usermapper.IUserRequestMapper;
 import com.user.demo.application.mapper.usermapper.IUserResponseMapper;
 import com.user.demo.domain.api.IUserServicePort;
