@@ -28,16 +28,16 @@ public class StockService {
         return stockServiceClient.createCategory(categoryRequest);
     }
 
-    public List<BrandResponse> getAllBrands() {
-        return stockServiceClient.getBrands();
+    public PaginatedResult<BrandResponse> getBrands(int page, int size, String sort, boolean ascending) {
+        return stockServiceClient.getBrands(page, size, sort, ascending);
     }
 
     public BrandResponse createBrand(BrandRequest brandRequest) {
         return stockServiceClient.createBrand(brandRequest);
     }
 
-    public List<ArticleResponse> getAllArticles() {
-        return stockServiceClient.getArticles();
+    public PaginatedResult<ArticleResponse> getArticles(int page, int size, String sort, boolean ascending) {
+        return stockServiceClient.getArticles(page, size, sort, ascending);
     }
 
     public ArticleResponse createArticle(ArticleRequest articleRequest) {

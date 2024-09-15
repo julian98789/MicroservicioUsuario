@@ -30,6 +30,8 @@ public class ConfigFilter {
                         .requestMatchers(
                                 "/auth/login",
                                 "/auth/stock/category",
+                                "/auth/stock/brand",
+                                "/auth/stock/article",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"

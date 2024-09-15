@@ -1,5 +1,6 @@
 package com.user.demo.application.dto.stock_microservice_dto.articledto;
 
+import com.user.demo.application.dto.stock_microservice_dto.branddto.BrandResponse;
 import com.user.demo.application.dto.stock_microservice_dto.categorydto.CategoryRelationArticleDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class ArticleResponse {
 
     private BigDecimal price;
 
-    private Long brandId;
+    private BrandResponse brand;
 
-    private List<CategoryRelationArticleDto> categoryIds;
+    private List<CategoryRelationArticleDto> categories;
 }

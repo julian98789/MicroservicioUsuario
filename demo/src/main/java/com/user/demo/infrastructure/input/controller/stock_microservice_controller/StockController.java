@@ -44,25 +44,37 @@ public class StockController {
         return ResponseEntity.status(HttpStatus.CREATED).body(category);
     }
 
-    @GetMapping("/brands")
-    public ResponseEntity<List<BrandResponse>> getBrands() {
-        List<BrandResponse> brands = stockService.getAllBrands();
-        return ResponseEntity.ok(brands);
+    @GetMapping("/brand")
+    public ResponseEntity<PaginatedResult<BrandResponse>> getBrands(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) int size,
+            @RequestParam(defaultValue = "name") @NotBlank @Size(min = 1) String sort,
+            @RequestParam(defaultValue = "true") boolean ascending) {
+
+        PaginatedResult<BrandResponse> paginatedResult = stockService.getBrands(page, size, sort, ascending);
+
+        return ResponseEntity.ok(paginatedResult);
     }
 
-    @PostMapping("/brands")
+    @PostMapping("/brand")
     public ResponseEntity<BrandResponse> createBrand(@RequestBody BrandRequest brandRequest) {
         BrandResponse brand = stockService.createBrand(brandRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(brand);
     }
 
-    @GetMapping("/articles")
-    public ResponseEntity<List<ArticleResponse>> getArticles() {
-        List<ArticleResponse> articles = stockService.getAllArticles();
-        return ResponseEntity.ok(articles);
+    @GetMapping("/article")
+    public ResponseEntity<PaginatedResult<ArticleResponse>> getArticles(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) int size,
+            @RequestParam(defaultValue = "name") @NotBlank @Size(min = 1) String sort,
+            @RequestParam(defaultValue = "true") boolean ascending) {
+
+        PaginatedResult<ArticleResponse> paginatedResult = stockService.getArticles(page, size, sort, ascending);
+
+        return ResponseEntity.ok(paginatedResult);
     }
 
-    @PostMapping("/articles")
+    @PostMapping("/article")
     public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleRequest articleRequest) {
         ArticleResponse article = stockService.createArticle(articleRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(article);

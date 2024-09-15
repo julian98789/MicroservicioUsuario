@@ -31,11 +31,19 @@ public interface IStockServiceClient {
     BrandResponse createBrand(@RequestBody BrandRequest brandRequest);
 
     @GetMapping("/brand")
-    List<BrandResponse> getBrands();
+    PaginatedResult<BrandResponse> getBrands(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sort,
+            @RequestParam(defaultValue = "true") boolean ascending);
 
     @PostMapping("/article")
     ArticleResponse createArticle(@RequestBody ArticleRequest articleRequest);
 
     @GetMapping("/article")
-    List<ArticleResponse> getArticles();
+    PaginatedResult<ArticleResponse> getArticles(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sort,
+            @RequestParam(defaultValue = "true") boolean ascending);
 }
