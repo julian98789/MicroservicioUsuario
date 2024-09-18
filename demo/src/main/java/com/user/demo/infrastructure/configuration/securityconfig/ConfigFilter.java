@@ -25,7 +25,7 @@ public class ConfigFilter {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable()) // Deshabilitar CSRF (si es necesario)
+                .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class GlobalExeceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidCredentialsLoginException.class)
     public ResponseEntity<String> invalidCredentialsLoginException( InvalidCredentialsLoginException ex) {
@@ -83,7 +83,7 @@ public class GlobalExeceptionHandler {
                 return message;
             }
         } catch (Exception ex) {
-
+            ex.getMessage();
         }
         return null;
     }
