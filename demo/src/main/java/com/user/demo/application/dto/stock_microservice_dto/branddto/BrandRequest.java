@@ -1,12 +1,11 @@
-package com.user.demo.application.dto.roledto;
+package com.user.demo.application.dto.stock_microservice_dto.branddto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-public class RoleResponse {
-    Long id;
+@Setter
+public class BrandRequest {
     private String name;
     private String description;
 }

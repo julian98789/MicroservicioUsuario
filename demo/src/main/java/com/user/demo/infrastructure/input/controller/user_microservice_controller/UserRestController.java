@@ -1,13 +1,14 @@
-package com.user.demo.infrastructure.input.controller;
+package com.user.demo.infrastructure.input.controller.user_microservice_controller;
 
-import com.user.demo.application.dto.userdto.UserRequest;
-import com.user.demo.application.dto.userdto.UserResponse;
-import com.user.demo.application.handler.IUserHandler;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserRequest;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserResponse;
+import com.user.demo.application.handler.user_microservice_handler.IUserHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserRestController {
 
     private final IUserHandler iUserHandler;
-
     @Operation(
             summary = "Register a new user",
-            description = "Register a new user in the system. If the user registration is successful, the user details will be returned. If there are validation errors or the user already exists, an error will be returned."
+            description = "Register a new user in the system. If the user registration is successful, the user details will be returned. If there are validation errors or the user already exists, an error will be returned.",
+            security = @SecurityRequirement(name = "bearerAuth")
     )
     @ApiResponses(value = {
             @ApiResponse(
@@ -51,4 +52,6 @@ public class UserRestController {
         UserResponse registerUser = iUserHandler.registerUser(userRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(registerUser);
     }
+
+
 }

@@ -1,13 +1,15 @@
 package com.user.demo.infrastructure.input.controller;
 
-import com.user.demo.application.dto.userdto.UserRequest;
-import com.user.demo.application.handler.IUserHandler;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserRequest;
+import com.user.demo.application.handler.user_microservice_handler.IUserHandler;
+import com.user.demo.infrastructure.input.controller.user_microservice_controller.UserRestController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -21,6 +23,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
 class UserRestControllerTest {
     private MockMvc mockMvc;
 

@@ -1,6 +1,6 @@
 package com.user.demo.application.mapper.usermapper;
 
-import com.user.demo.application.dto.userdto.UserRequest;
+import com.user.demo.application.dto.user_microservice_dto.userdto.UserRequest;
 import com.user.demo.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
